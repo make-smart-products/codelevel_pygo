@@ -1,7 +1,7 @@
 """Облачная публикация с сохранением прогресса до и после отправки."""
 
 import argparse
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -29,9 +29,13 @@ def save_state(state):
 def publish(state, now, send, persist):
     if state.get("pending"):
         raise RuntimeError("Предыдущая доставка не подтверждена. Проверьте канал и pending в .publication-state.json.")
+    # Сравниваем окна cron, а не прошедшие секунды: задержка предыдущего
+    # запуска GitHub не должна отменять следующий плановый выпуск.
+    slot = int((now.timestamp() - 17 * 60) // (3 * 60 * 60))
     last_sent = datetime.fromisoformat(state["last_sent_at"])
-    if now - last_sent < timedelta(hours=3):
-        print("С предыдущей публикации ещё не прошло 3 часа.")
+    last_slot = state.get("last_slot", int((last_sent.timestamp() - 17 * 60) // (3 * 60 * 60)))
+    if slot <= last_slot:
+        print("В текущем трёхчасовом окне пост уже опубликован.")
         return
     index = state["next_index"]
     text = render(index)
@@ -39,7 +43,7 @@ def publish(state, now, send, persist):
     # Если резервирование не попало в GitHub, сообщение не отправляется.
     persist(state)
     result = send(text)
-    state.update(next_index=index+1, last_sent_at=now.isoformat(), last_message_id=result["message_id"], pending=None)
+    state.update(next_index=index+1, last_slot=slot, last_sent_at=now.isoformat(), last_message_id=result["message_id"], pending=None)
     persist(state)
     print(f"Опубликована задача #{index+1}. ID сообщения: {result['message_id']}")
 

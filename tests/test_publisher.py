@@ -55,3 +55,11 @@ class DeliveryTests(unittest.TestCase):
         self.state['last_sent_at'] = (self.now-timedelta(hours=2)).isoformat()
         publish(self.state, self.now, send, Mock())
         send.assert_not_called()
+
+    def test_delayed_previous_run_does_not_skip_next_slot(self):
+        previous = datetime(2026, 11, 1, 12, 30, tzinfo=timezone.utc)
+        now = datetime(2026, 11, 1, 15, 20, tzinfo=timezone.utc)
+        self.state['last_sent_at'] = previous.isoformat()
+        send = Mock(return_value={'message_id': 124})
+        publish(self.state, now, send, Mock())
+        send.assert_called_once()
