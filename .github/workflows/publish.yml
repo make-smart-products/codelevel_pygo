@@ -1,0 +1,47 @@
+name: CodeLevel every 3 hours
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      check_only:
+        description: 'Only check connection without publishing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: codelevel-channel-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test content and delivery safeguards
+        run: python -m unittest discover -s tests -v
+      - name: Configure progress commits
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Check or publish
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: '@codelevel_pygo'
+          CHECK_ONLY: ${{ github.event.inputs.check_only }}
+        run: |
+          if [ "$CHECK_ONLY" = "true" ]; then
+            python scheduled_publish.py --check
+          else
+            python scheduled_publish.py
+          fi
