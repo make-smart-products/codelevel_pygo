@@ -22,18 +22,18 @@ Python 3.12+, без сторонних библиотек. Команды вы�
 
 ## Облачные публикации
 
-GitHub Actions: `.github/workflows/publish.yml`, cron `17 */3 * * *` (UTC).
-Это 00:17, 03:17, 06:17, 09:17, 12:17, 15:17, 18:17 и 21:17 по Москве.
+GitHub Actions: `.github/workflows/publish.yml`, cron `17 * * * *` (UTC).
+Запуск каждый час на 17-й минуте, круглосуточно (по Москве также каждый час).
 Работает при выключенном ноутбуке и закрытом Codex. GitHub может задерживать
 или пропускать запуски: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule
 
 В Actions Secrets хранится `TELEGRAM_BOT_TOKEN`. В код и git токен не попадает.
 Для ручной проверки запускайте workflow с `check_only=true` (по умолчанию).
-`check_only=false` публикует очередное задание, если в текущем трёхчасовом окне
+`check_only=false` публикует очередное задание, если в текущем часовом окне
 расписания ещё не было поста. Используются окна с началом на 17-й минуте.
 Задержки GitHub могут менять фактический интервал между сообщениями.
 
-Посты чередуют Python и Go. `content.py` создаёт задания по 8 темам для каждого
+Посты чередуют Python и Go. `content.py` создаёт задания по 16 темам для каждого
 языка, изменяя числовые данные в каждом цикле. Ответ и объяснение скрыты под
 спойлером. Это шаблонные упражнения, без платных сервисов и ИИ API.
 Для развития программы обучения добавляйте новые темы в `content.py`.
@@ -44,7 +44,7 @@ GitHub Actions: `.github/workflows/publish.yml`, cron `17 */3 * * *` (UTC).
 чтобы не дублировать пост. Проверьте канал: если пост доставлен, увеличьте
 `next_index` на 1, запишите время в `last_sent_at` (ISO UTC) и ID сообщения;
 если не доставлен, оставьте индекс. Затем установите `pending: null`.
-Остановка расписания: GitHub → Actions → CodeLevel every 3 hours → Disable workflow.
+Остановка расписания: GitHub → Actions → CodeLevel hourly → Disable workflow.
 
 Проверки: `python -m unittest discover -s tests -v`.
 

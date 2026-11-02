@@ -31,11 +31,12 @@ def publish(state, now, send, persist):
         raise RuntimeError("Предыдущая доставка не подтверждена. Проверьте канал и pending в .publication-state.json.")
     # Сравниваем окна cron, а не прошедшие секунды: задержка предыдущего
     # запуска GitHub не должна отменять следующий плановый выпуск.
-    slot = int((now.timestamp() - 17 * 60) // (3 * 60 * 60))
+    slot = int((now.timestamp() - 17 * 60) // (60 * 60))
     last_sent = datetime.fromisoformat(state["last_sent_at"])
-    last_slot = state.get("last_slot", int((last_sent.timestamp() - 17 * 60) // (3 * 60 * 60)))
+    # Вычисляем из времени: старые last_slot относились к трёхчасовым окнам.
+    last_slot = int((last_sent.timestamp() - 17 * 60) // (60 * 60))
     if slot <= last_slot:
-        print("В текущем трёхчасовом окне пост уже опубликован.")
+        print("В текущем часовом окне пост уже опубликован.")
         return
     index = state["next_index"]
     text = render(index)

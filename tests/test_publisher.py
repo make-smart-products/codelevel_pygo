@@ -52,14 +52,29 @@ class DeliveryTests(unittest.TestCase):
 
     def test_early_run_does_not_send(self):
         send = Mock()
-        self.state['last_sent_at'] = (self.now-timedelta(hours=2)).isoformat()
+        self.state['last_sent_at'] = (self.now-timedelta(minutes=30)).isoformat()
         publish(self.state, self.now, send, Mock())
         send.assert_not_called()
 
     def test_delayed_previous_run_does_not_skip_next_slot(self):
-        previous = datetime(2026, 11, 1, 12, 30, tzinfo=timezone.utc)
+        previous = datetime(2026, 11, 1, 14, 30, tzinfo=timezone.utc)
         now = datetime(2026, 11, 1, 15, 20, tzinfo=timezone.utc)
         self.state['last_sent_at'] = previous.isoformat()
         send = Mock(return_value={'message_id': 124})
         publish(self.state, now, send, Mock())
         send.assert_called_once()
+
+    def test_old_three_hour_slot_does_not_duplicate_current_hour(self):
+        self.state['last_slot'] = 166077
+        self.state['last_sent_at'] = (self.now-timedelta(minutes=5)).isoformat()
+        send = Mock()
+        publish(self.state, self.now, send, Mock())
+        send.assert_not_called()
+
+    def test_next_hour_publishes_after_previous_success(self):
+        send = Mock(return_value={'message_id': 125})
+        publish(self.state, self.now, send, Mock())
+        publish(self.state, self.now+timedelta(minutes=5), send, Mock())
+        self.assertEqual(send.call_count, 1)
+        publish(self.state, self.now+timedelta(hours=1), send, Mock())
+        self.assertEqual(send.call_count, 2)
