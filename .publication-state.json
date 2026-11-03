@@ -2,6 +2,9 @@
   "next_index": 7,
   "last_sent_at": "2026-11-03T10:59:03.656132+00:00",
   "last_message_id": 10,
-  "pending": null,
+  "pending": {
+    "index": 7,
+    "reserved_at": "2026-11-03T18:29:19.787568+00:00"
+  },
   "last_slot": 498250
 }
