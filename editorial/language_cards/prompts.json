@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "transparent_background": false,
+  "prompts": [
+    {
+      "id": "python",
+      "prompt": "Create a premium editorial technology poster for a Russian programming education Telegram channel CodeLevel. Vertical 4:5 composition, dark midnight navy background, sculptural precisely lit 3D objects, generous negative space, restrained polished materials, excellent mobile readability. Cohesive professional magazine cover series. Small exact top label 'CODELEVEL'; one large crisp exact headline supplied below. No other text, no code, no charts, no ratings, no watermark, no copied official logos or mascots. Strong centered conceptual image with restrained light and depth. Opaque background. Headline 'PYTHON'. Golden yellow and electric blue interlocking ribbon forms opening into a clean modular data pipeline with a few precise data tiles, evoking expressive programming, automation and data science. Refined, thoughtful, tangible, not a cartoon."
+    },
+    {
+      "id": "go",
+      "prompt": "Create a premium editorial technology poster for a Russian programming education Telegram channel CodeLevel. Vertical 4:5 composition, dark midnight navy background, sculptural precisely lit 3D objects, generous negative space, restrained polished materials, excellent mobile readability. Cohesive professional magazine cover series. Small exact top label 'CODELEVEL'; one large crisp exact headline supplied below. No other text, no code, no charts, no ratings, no watermark, no copied official logos or mascots. Strong centered conceptual image with restrained light and depth. Opaque background. Headline 'GO'. Luminous cyan precision-built parallel channels carry discrete blocks into an elegant server architecture. Visual metaphor for concurrent network services, engineering clarity and simple components. No claims about absolute speed. Minimal, powerful composition."
+    },
+    {
+      "id": "javascript-typescript",
+      "prompt": "Create a premium editorial technology poster for a Russian programming education Telegram channel CodeLevel. Vertical 4:5 composition, dark midnight navy background, sculptural precisely lit 3D objects, generous negative space, restrained polished materials, excellent mobile readability. Cohesive professional magazine cover series. Small exact top label 'CODELEVEL'; one large crisp exact headline supplied below. No other text, no code, no charts, no ratings, no watermark, no copied official logos or mascots. Strong centered conceptual image with restrained light and depth. Opaque background. Headline on two clean lines: 'JAVASCRIPT' and 'TYPESCRIPT'. Warm yellow flowing modular interfaces on one side transitioning through a cool blue geometric type structure into an elegant abstract browser panel on the other. Visual metaphor for interactive web software and added static structure. No padlocks or security claims."
+    },
+    {
+      "id": "java-csharp",
+      "prompt": "Create a premium editorial technology poster for a Russian programming education Telegram channel CodeLevel. Vertical 4:5 composition, dark midnight navy background, sculptural precisely lit 3D objects, generous negative space, restrained polished materials, excellent mobile readability. Cohesive professional magazine cover series. Small exact top label 'CODELEVEL'; one large crisp exact headline supplied below. No other text, no code, no charts, no ratings, no watermark, no copied official logos or mascots. Strong centered conceptual image with restrained light and depth. Opaque background. Headline 'JAVA / C#'. Sculptural copper and violet modular architecture, strongly interconnected enterprise service blocks forming one coherent engineered system, subtle polished metal and ceramic. Visual metaphor for mature application ecosystems and structured backend development."
+    },
+    {
+      "id": "rust",
+      "prompt": "Create a premium editorial technology poster for a Russian programming education Telegram channel CodeLevel. Vertical 4:5 composition, dark midnight navy background, sculptural precisely lit 3D objects, generous negative space, restrained polished materials, excellent mobile readability. Cohesive professional magazine cover series. Small exact top label 'CODELEVEL'; one large crisp exact headline supplied below. No other text, no code, no charts, no ratings, no watermark, no copied official logos or mascots. Strong centered conceptual image with restrained light and depth. Opaque background. Headline 'RUST'. Warm rust orange precision-crafted components with a single luminous token being passed along an exact mechanical path, evoking ownership and deliberate resource management. Brushed dark metal, exact tolerances, no gears copied from a trademark, no safety guarantee text."
+    }
+  ]
+}

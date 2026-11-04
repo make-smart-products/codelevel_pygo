@@ -1,0 +1,30 @@
+{
+  "channel": "@codelevel_pygo",
+  "posts": [
+    {
+      "id": "python",
+      "message_id": 34,
+      "url": "https://t.me/codelevel_pygo/34"
+    },
+    {
+      "id": "go",
+      "message_id": 35,
+      "url": "https://t.me/codelevel_pygo/35"
+    },
+    {
+      "id": "javascript-typescript",
+      "message_id": 36,
+      "url": "https://t.me/codelevel_pygo/36"
+    },
+    {
+      "id": "java-csharp",
+      "message_id": 37,
+      "url": "https://t.me/codelevel_pygo/37"
+    },
+    {
+      "id": "rust",
+      "message_id": 38,
+      "url": "https://t.me/codelevel_pygo/38"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
-name: CodeLevel hourly
+name: CodeLevel illustrated skills every 10 minutes
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '7-59/10 * * * *'
   workflow_dispatch:
     inputs:
       check_only:
@@ -43,7 +43,7 @@ jobs:
           CHECK_ONLY: ${{ github.event.inputs.check_only }}
         run: |
           if [ "$CHECK_ONLY" = "true" ]; then
-            python scheduled_publish.py --check
+            python skills_publish.py --check
           else
-            python scheduled_publish.py
+            python skills_publish.py
           fi

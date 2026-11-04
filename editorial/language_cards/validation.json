@@ -1,0 +1,12 @@
+{
+  "go_examples_executed": 48,
+  "recipe_families": 24,
+  "prepared_preview": 605,
+  "kinds": {
+    "photo": 365,
+    "quiz": 240
+  },
+  "generation": "deterministic authored templates; repeated concepts with new code inputs",
+  "images": "five reusable topic-series covers generated with built-in image_gen",
+  "not_ai_generation_on_github": true
+}
