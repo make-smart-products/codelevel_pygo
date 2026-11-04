@@ -1,11 +1,8 @@
 {
-  "next_index": 11,
+  "next_index": 12,
   "last_sent_at": "2026-11-04T07:58:33.143063+00:00",
-  "last_message_id": 14,
-  "pending": {
-    "index": 11,
-    "reserved_at": "2026-11-04T07:58:33.143063+00:00"
-  },
+  "last_message_id": 15,
+  "pending": null,
   "last_slot": 498271,
   "batch": {
     "slot": 498271,
