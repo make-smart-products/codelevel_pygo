@@ -1,6 +1,7 @@
 """Проверяемые учебные задачи: чередование Python и Go, ответ под спойлером."""
 
 from html import escape
+from functools import lru_cache
 
 
 def exercise(index):
@@ -52,7 +53,7 @@ def exercise(index):
     return {"language": language, "title": title, "code": code, "answer": answer, "explanation": explanation}
 
 
-def render(index):
+def legacy_render(index):
     item = exercise(index)
     return (
         f"<b>{item['language']} · задача #{index+1}</b>\n"
@@ -62,3 +63,19 @@ def render(index):
         f"<tg-spoiler>Ответ:\n{escape(item['answer'])}\n\n{escape(item['explanation'])}</tg-spoiler>\n\n"
         f"#{item['language']} #Практика #CodeLevel"
     )
+
+
+@lru_cache(maxsize=1)
+def course_posts():
+    """Конечная редакционная очередь; старые упражнения в неё не подмешиваются."""
+    import json
+    from pathlib import Path
+    path = Path(__file__).resolve().parent / 'editorial' / 'pack' / 'queue.jsonl'
+    return [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line.strip()]
+
+
+def render(index):
+    posts = course_posts()
+    if not 0 <= index < len(posts):
+        raise ValueError('Редакционная очередь закончилась или индекс некорректен.')
+    return posts[index]['html']

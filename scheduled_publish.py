@@ -10,9 +10,9 @@ import sys
 import time
 
 from bot import ROOT, api, read_config
-from content import render
+from content import course_posts, render
 
-STATE = ROOT / ".publication-state.json"
+STATE = ROOT / ".course-publication-state.json"
 POSTS_PER_RUN = 5
 
 
@@ -30,7 +30,10 @@ def save_state(state):
 
 def publish(state, now, send, persist):
     if state.get("pending"):
-        raise RuntimeError("Предыдущая доставка не подтверждена. Проверьте канал и pending в .publication-state.json.")
+        raise RuntimeError("Предыдущая доставка не подтверждена. Проверьте канал и pending в .course-publication-state.json.")
+    if state['next_index'] >= len(course_posts()):
+        print('Все публикации учебной программы отправлены. Очередь завершена.')
+        return
     # Сравниваем окна cron, а не прошедшие секунды: задержка предыдущего
     # запуска GitHub не должна отменять следующий плановый выпуск.
     slot = int((now.timestamp() - 17 * 60) // (60 * 60))
@@ -42,21 +45,22 @@ def publish(state, now, send, persist):
         print("В текущем часовом окне публикация уже выполнена.")
         return
     if not batch:
-        batch = {"slot": slot, "end_index": state["next_index"] + POSTS_PER_RUN}
+        batch = {"slot": slot, "end_index": min(state["next_index"] + POSTS_PER_RUN, len(course_posts()))}
         state["batch"] = batch
     while state["next_index"] < batch["end_index"]:
         index = state["next_index"]
         text = render(index)
-        state["pending"] = {"index": index, "reserved_at": now.isoformat()}
+        post_id = course_posts()[index]['id']
+        state["pending"] = {"index": index, "post_id": post_id, "reserved_at": now.isoformat()}
         # Каждый пост резервируется отдельно; при неопределённой доставке
         # серия останавливается, уже подтверждённые посты не повторяются.
         persist(state)
         result = send(text)
-        state.update(next_index=index+1, last_slot=slot, last_sent_at=now.isoformat(), last_message_id=result["message_id"], pending=None)
+        state.update(next_index=index+1, last_post_id=post_id, last_slot=slot, last_sent_at=now.isoformat(), last_message_id=result["message_id"], pending=None)
         if index + 1 == batch["end_index"]:
             state["batch"] = None
         persist(state)
-        print(f"Опубликована задача #{index+1}. ID сообщения: {result['message_id']}")
+        print(f"Опубликован пост курса #{index+1}. ID сообщения: {result['message_id']}")
         if state["batch"]:
             time.sleep(3.1)
 
@@ -69,7 +73,10 @@ def main():
     state = json.loads(STATE.read_text(encoding="utf-8"))
     if args.preview:
         start = state["next_index"]
-        end = (state.get("batch") or {}).get("end_index", start + POSTS_PER_RUN)
+        end = min((state.get("batch") or {}).get("end_index", start + POSTS_PER_RUN), len(course_posts()))
+        if start >= end:
+            print('Все публикации учебной программы отправлены.')
+            return
         print("\n\n-----\n\n".join(render(index) for index in range(start, end)))
         return
     config = read_config(ROOT / ".env")

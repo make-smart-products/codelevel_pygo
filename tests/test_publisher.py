@@ -5,13 +5,13 @@ import io
 import unittest
 from unittest.mock import Mock, patch
 
-from content import exercise, render
+from content import course_posts, exercise, render
 from scheduled_publish import publish
 
 
 class ContentTests(unittest.TestCase):
     def test_python_answers_match_execution(self):
-        for index in range(0, 320, 2):
+        for index in range(0, 300, 2):
             with self.subTest(index=index):
                 item = exercise(index)
                 output = io.StringIO()
@@ -21,8 +21,15 @@ class ContentTests(unittest.TestCase):
                 self.assertLess(len(render(index).encode('utf-16-le')) // 2, 4096)
 
     def test_post_bodies_change(self):
-        posts = [render(index) for index in range(320)]
+        posts = [render(index) for index in range(300)]
         self.assertEqual(len(set(posts)), len(posts))
+
+    def test_course_has_300_ordered_posts_and_release_at_60(self):
+        posts = course_posts()
+        self.assertEqual(len(posts), 300)
+        self.assertEqual([p['number'] for p in posts], list(range(1,301)))
+        self.assertTrue(all(p['artifact_url'] for p in posts[:60]))
+        self.assertTrue(all(p['implementation_status']=='learning_exercise_to_implement' for p in posts[60:]))
 
 
 class DeliveryTests(unittest.TestCase):
@@ -110,3 +117,12 @@ class DeliveryTests(unittest.TestCase):
         self.assertEqual(send.call_args_list[0].args[0], render(2))
         self.assertEqual(self.state['next_index'], 5)
         self.assertIsNone(self.state['batch'])
+
+    def test_final_partial_batch_stops_at_end_of_course(self):
+        self.state['next_index'] = 298
+        send = Mock(return_value={'message_id': 500})
+        publish(self.state, self.now, send, Mock())
+        self.assertEqual(send.call_count, 2)
+        self.assertEqual(self.state['next_index'], 300)
+        publish(self.state, self.now+timedelta(hours=1), send, Mock())
+        self.assertEqual(send.call_count, 2)

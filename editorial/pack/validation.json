@@ -1,0 +1,12 @@
+{
+  "post_count": 300,
+  "modules": {
+    "Создаём личного Telegram-бота · 1–60": 60,
+    "Развиваем приложение · 61–150": 90,
+    "Углубляем навыки · 151–300": 150
+  },
+  "unique_bodies": 300,
+  "telegram_length_check": "passed",
+  "publication_status": "prepared_delivery_progress_in_course_state",
+  "queue_sha256": "ac81a38aa5af5d030540236fa326ec24a2be6152d08efb85d92eb2f9d7d36367"
+}
