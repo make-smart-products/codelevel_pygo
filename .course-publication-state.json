@@ -3,7 +3,11 @@
   "next_index": 7,
   "last_sent_at": "2026-11-04T15:29:50.515899+00:00",
   "last_message_id": 25,
-  "pending": null,
+  "pending": {
+    "index": 7,
+    "post_id": "cl-0008",
+    "reserved_at": "2026-11-04T15:29:50.515899+00:00"
+  },
   "batch": {
     "slot": 498279,
     "end_index": 10
