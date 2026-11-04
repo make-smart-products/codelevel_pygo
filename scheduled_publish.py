@@ -83,6 +83,9 @@ def main():
     parser.add_argument("--check", action="store_true", help="Проверить подключение без отправки")
     parser.add_argument("--preview", action="store_true", help="Показать следующий пост без подключения")
     args = parser.parse_args()
+    if (ROOT / 'course-retired.json').exists() and not args.check and not args.preview:
+        print('Публикация прежнего курса остановлена: канал переведён на новый формат.')
+        return
     state = json.loads(STATE.read_text(encoding="utf-8"))
     if args.preview:
         start = state["next_index"]
