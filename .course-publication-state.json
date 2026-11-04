@@ -1,17 +1,10 @@
 {
   "course_version": "personal-bot-v1",
-  "next_index": 9,
+  "next_index": 10,
   "last_sent_at": "2026-11-04T15:29:50.515899+00:00",
-  "last_message_id": 27,
-  "pending": {
-    "index": 9,
-    "post_id": "cl-0010",
-    "reserved_at": "2026-11-04T15:29:50.515899+00:00"
-  },
-  "batch": {
-    "slot": 498279,
-    "end_index": 10
-  },
-  "last_post_id": "cl-0009",
+  "last_message_id": 28,
+  "pending": null,
+  "batch": null,
+  "last_post_id": "cl-0010",
   "last_slot": 498279
 }
