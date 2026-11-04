@@ -2,8 +2,16 @@
   "version": "illustrated-skills-v1",
   "next_index": 5,
   "last_sent_at": "2026-11-04T16:39:42.480054+00:00",
-  "pending": null,
-  "batch": null,
+  "pending": {
+    "index": 5,
+    "event_id": "skill-00000000-0",
+    "kind": "photo",
+    "sha256": "57e9fef3789bde6a0b0a7ecdcc639f72632a162effee98061dbeca41f12e353d"
+  },
+  "batch": {
+    "slot": 2989684,
+    "end_index": 10
+  },
   "last_message_id": 38,
   "last_event_id": "overview-rust"
 }
