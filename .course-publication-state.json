@@ -3,6 +3,13 @@
   "next_index": 0,
   "last_sent_at": "1970-01-01T00:00:00+00:00",
   "last_message_id": null,
-  "pending": null,
-  "batch": null
+  "pending": {
+    "index": 0,
+    "post_id": "cl-0001",
+    "reserved_at": "2026-11-04T15:15:29.976913+00:00"
+  },
+  "batch": {
+    "slot": 498278,
+    "end_index": 5
+  }
 }
