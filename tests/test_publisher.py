@@ -1,8 +1,9 @@
 import contextlib
+import copy
 from datetime import datetime, timedelta, timezone
 import io
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from content import exercise, render
 from scheduled_publish import publish
@@ -26,6 +27,8 @@ class ContentTests(unittest.TestCase):
 
 class DeliveryTests(unittest.TestCase):
     def setUp(self):
+        self.pause = patch('scheduled_publish.time.sleep').start()
+        self.addCleanup(patch.stopall)
         self.now = datetime(2026, 11, 1, 15, tzinfo=timezone.utc)
         self.state = {'next_index': 0, 'last_sent_at': (self.now-timedelta(hours=4)).isoformat(), 'pending': None}
 
@@ -45,10 +48,18 @@ class DeliveryTests(unittest.TestCase):
 
     def test_success_advances_and_persists_progress(self):
         snapshots = []
-        publish(self.state, self.now, Mock(return_value={'message_id': 123}), lambda state: snapshots.append(dict(state)))
+        send = Mock(side_effect=[{'message_id': n} for n in range(123,128)])
+        publish(self.state, self.now, send, lambda state: snapshots.append(copy.deepcopy(state)))
         self.assertIsNotNone(snapshots[0]['pending'])
         self.assertIsNone(snapshots[1]['pending'])
-        self.assertEqual(self.state['next_index'], 1)
+        self.assertEqual(self.state['next_index'], 5)
+        self.assertEqual(send.call_count, 5)
+        self.assertEqual(len(snapshots), 10)
+        self.assertIsNone(self.state['batch'])
+        self.assertEqual(self.state['last_message_id'], 127)
+        self.assertEqual(self.pause.call_count, 4)
+        self.assertEqual([s['pending']['index'] for s in snapshots[::2]], list(range(5)))
+        self.assertEqual(len(set(call.args[0] for call in send.call_args_list)), 5)
 
     def test_early_run_does_not_send(self):
         send = Mock()
@@ -62,7 +73,7 @@ class DeliveryTests(unittest.TestCase):
         self.state['last_sent_at'] = previous.isoformat()
         send = Mock(return_value={'message_id': 124})
         publish(self.state, now, send, Mock())
-        send.assert_called_once()
+        self.assertEqual(send.call_count, 5)
 
     def test_old_three_hour_slot_does_not_duplicate_current_hour(self):
         self.state['last_slot'] = 166077
@@ -75,6 +86,27 @@ class DeliveryTests(unittest.TestCase):
         send = Mock(return_value={'message_id': 125})
         publish(self.state, self.now, send, Mock())
         publish(self.state, self.now+timedelta(minutes=5), send, Mock())
-        self.assertEqual(send.call_count, 1)
+        self.assertEqual(send.call_count, 5)
         publish(self.state, self.now+timedelta(hours=1), send, Mock())
-        self.assertEqual(send.call_count, 2)
+        self.assertEqual(send.call_count, 10)
+
+    def test_failure_in_middle_preserves_progress_and_blocks_retry(self):
+        send = Mock(side_effect=[{'message_id': 123}, {'message_id': 124}, TimeoutError()])
+        with self.assertRaises(TimeoutError):
+            publish(self.state, self.now, send, Mock())
+        self.assertEqual(self.state['next_index'], 2)
+        self.assertEqual(self.state['pending']['index'], 2)
+        self.assertEqual(self.state['batch']['end_index'], 5)
+        retry = Mock()
+        with self.assertRaises(RuntimeError):
+            publish(self.state, self.now+timedelta(hours=1), retry, Mock())
+        retry.assert_not_called()
+
+    def test_confirmed_partial_batch_resumes_without_repeating_sent_posts(self):
+        self.state.update(next_index=2, batch={'slot':0,'end_index':5}, last_sent_at=self.now.isoformat())
+        send = Mock(return_value={'message_id': 125})
+        publish(self.state, self.now, send, Mock())
+        self.assertEqual(send.call_count, 3)
+        self.assertEqual(send.call_args_list[0].args[0], render(2))
+        self.assertEqual(self.state['next_index'], 5)
+        self.assertIsNone(self.state['batch'])
