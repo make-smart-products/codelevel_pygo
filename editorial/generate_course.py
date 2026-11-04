@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from build_pack import ROOT, build, make_post
+from intro.posts import apply_intro
 
 APP_URL='https://github.com/make-smart-products/codelevel_pygo/tree/main/editorial/app60'
 SOURCE_OVERRIDES={
@@ -85,7 +86,7 @@ def posts():
                 artifact_url=APP_URL if first_release else None,
                 implementation_status='reference_app_available' if first_release else 'learning_exercise_to_implement')
             result.append(post)
-    return result
+    return apply_intro(result)
 
 
 if __name__=='__main__':

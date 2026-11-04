@@ -16,6 +16,19 @@ STATE = ROOT / ".course-publication-state.json"
 POSTS_PER_RUN = 5
 
 
+def send_course_post(token, chat_id, text):
+    post = next((item for item in course_posts() if item['html'] == text), None)
+    if post is None:
+        raise ValueError('Пост отсутствует в редакционной очереди.')
+    animation = post.get('animation')
+    if animation:
+        if not animation.get('file_id'):
+            raise RuntimeError('Анимация поста ещё не загружена в Telegram.')
+        return api(token, 'sendAnimation', chat_id=chat_id, animation=animation['file_id'],
+                   caption=post['caption_html'], parse_mode='HTML')
+    return api(token, 'sendMessage', chat_id=chat_id, text=text, parse_mode='HTML')
+
+
 def save_state(state):
     STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("GITHUB_ACTIONS") != "true":
@@ -95,7 +108,7 @@ def main():
     if os.environ.get("GITHUB_ACTIONS") != "true":
         raise ValueError("Для локального просмотра используйте --preview.")
     publish(state, datetime.now(timezone.utc),
-            lambda text: api(token, "sendMessage", chat_id=chat["id"], text=text, parse_mode="HTML"), save_state)
+            lambda text: send_course_post(token, chat['id'], text), save_state)
 
 
 if __name__ == "__main__":

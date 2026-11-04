@@ -1,0 +1,77 @@
+{
+  "clips": [
+    {
+      "id": "01-language-models",
+      "codec": "h264",
+      "size": [
+        1080,
+        1350
+      ],
+      "fps": 24,
+      "duration": 24,
+      "bytes": 253387,
+      "sha256": "d39c124f4f233f44ce7f7bcc27630df2aa2707e56223211531ac7510732836b0",
+      "caption_utf16_units": 766,
+      "full_decode": "passed"
+    },
+    {
+      "id": "02-strengths-tradeoffs",
+      "codec": "h264",
+      "size": [
+        1080,
+        1350
+      ],
+      "fps": 24,
+      "duration": 24,
+      "bytes": 212087,
+      "sha256": "a7cafb6d21849940272bc22123522925593a4a54bccb5ca48f3011f6cedf1eb9",
+      "caption_utf16_units": 771,
+      "full_decode": "passed"
+    },
+    {
+      "id": "03-concurrency",
+      "codec": "h264",
+      "size": [
+        1080,
+        1350
+      ],
+      "fps": 24,
+      "duration": 24,
+      "bytes": 262202,
+      "sha256": "9afdd2b9160cdb1f0a811ec1880106486a905bfb557c2c22ea65f3aff9d93bc7",
+      "caption_utf16_units": 826,
+      "full_decode": "passed"
+    },
+    {
+      "id": "04-choose-by-task",
+      "codec": "h264",
+      "size": [
+        1080,
+        1350
+      ],
+      "fps": 24,
+      "duration": 24,
+      "bytes": 207481,
+      "sha256": "07d600e7c6b4f6d24aa0020aad4321da3a4a9f36a4b9a8d0576ede4f3c3d8f82",
+      "caption_utf16_units": 806,
+      "full_decode": "passed"
+    },
+    {
+      "id": "05-outlook",
+      "codec": "h264",
+      "size": [
+        1080,
+        1350
+      ],
+      "fps": 24,
+      "duration": 24,
+      "bytes": 173876,
+      "sha256": "28cfc4fe50c85868f64d65fed9c0a17972369a726530b0c3cb8a429af86e0a2a",
+      "caption_utf16_units": 791,
+      "full_decode": "passed"
+    }
+  ],
+  "visual_review": "15 storyboard frames inspected; no clipping",
+  "as_of": "2026-11-04",
+  "statistics_scope": "Stack Overflow 2026 language question, n=14099; multiple choices; not vacancies"
+}

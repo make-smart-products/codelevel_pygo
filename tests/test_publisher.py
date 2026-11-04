@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from content import course_posts, exercise, render
-from scheduled_publish import publish
+from scheduled_publish import publish, send_course_post
 
 
 class ContentTests(unittest.TestCase):
@@ -30,6 +30,30 @@ class ContentTests(unittest.TestCase):
         self.assertEqual([p['number'] for p in posts], list(range(1,301)))
         self.assertTrue(all(p['artifact_url'] for p in posts[:60]))
         self.assertTrue(all(p['implementation_status']=='learning_exercise_to_implement' for p in posts[60:]))
+
+    def test_intro_is_five_distinct_animations_and_keeps_post_ids(self):
+        posts = course_posts()[:5]
+        self.assertEqual([p['id'] for p in posts], ['cl-0001','cl-0002','cl-0003','cl-0004','cl-0005'])
+        self.assertEqual(len({p['animation']['path'] for p in posts}), 5)
+        self.assertTrue(all(p['content_revision']=='python-go-motion-2026-11-04' for p in posts))
+
+
+class MediaTests(unittest.TestCase):
+    def test_animation_uses_file_id_and_caption(self):
+        post = copy.deepcopy(course_posts()[0])
+        post['animation']['file_id'] = 'test-file-id'
+        with patch('scheduled_publish.course_posts',return_value=[post]), patch('scheduled_publish.api') as api:
+            send_course_post('test-token',-100,post['html'])
+        api.assert_called_once_with('test-token','sendAnimation',chat_id=-100,animation='test-file-id',
+                                    caption=post['caption_html'],parse_mode='HTML')
+
+    def test_animation_does_not_silently_become_text(self):
+        post = copy.deepcopy(course_posts()[0])
+        post['animation'].pop('file_id',None)
+        with patch('scheduled_publish.course_posts',return_value=[post]), patch('scheduled_publish.api') as api:
+            with self.assertRaises(RuntimeError):
+                send_course_post('test-token',-100,post['html'])
+        api.assert_not_called()
 
 
 class DeliveryTests(unittest.TestCase):
