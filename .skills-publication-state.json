@@ -1,17 +1,12 @@
 {
   "version": "illustrated-skills-v1",
-  "next_index": 30,
-  "last_sent_at": "2026-11-05T17:42:22.741566+00:00",
-  "pending": {
-    "index": 30,
-    "event_id": "skill-00000005-0",
-    "kind": "photo",
-    "sha256": "d83c5edd2e887c00dbf90d5a9564a885f6ae926befd9610904bbd07b45ffa69b"
-  },
+  "next_index": 31,
+  "last_sent_at": "2026-11-05T22:53:17.639020+00:00",
+  "pending": null,
   "batch": {
     "slot": 2989864,
     "end_index": 35
   },
-  "last_message_id": 63,
-  "last_event_id": "skill-00000004-4"
+  "last_message_id": 64,
+  "last_event_id": "skill-00000005-0"
 }
