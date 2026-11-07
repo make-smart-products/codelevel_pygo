@@ -1,19 +1,11 @@
 {
   "version": "illustrated-skills-v1",
-  "next_index": 69,
+  "next_index": 70,
   "last_sent_at": "2026-11-07T08:24:37.758489+00:00",
-  "pending": {
-    "index": 69,
-    "event_id": "go-http-v1-10",
-    "kind": "photo",
-    "sha256": "7a11128de59fbc7d89e05b8aa37a55b49db470731fbbc5d51825cdb0011f707f"
-  },
-  "batch": {
-    "slot": 2990065,
-    "end_index": 70
-  },
-  "last_message_id": 102,
-  "last_event_id": "go-http-v1-09",
+  "pending": null,
+  "batch": null,
+  "last_message_id": 103,
+  "last_event_id": "go-http-v1-10",
   "go_http_start": 60,
   "used_image_hashes": [
     "sha256:0ab1fbe155c97aee8f75832a5a7b0236dfe9dcd78bdc6b5e5cc609f14bcc0167",
@@ -29,6 +21,7 @@
     "sha256:976d4012ab68d468e66e9fcc5a16405a5fc9dfb7bace3d55f89698bb9c98c08d",
     "sha256:e7fe5d5705bf987e37199a96095f518733da8477453170af0b51d90d79cdc5f4",
     "sha256:f27922f65589f0fa46cedd3f404ac9515820509629b48a343e11550096f6b137",
-    "sha256:aece647e943d0b6ce060c28f83080e8574cf3444d150f3d603c281efb6de5061"
+    "sha256:aece647e943d0b6ce060c28f83080e8574cf3444d150f3d603c281efb6de5061",
+    "sha256:0ffc7d26f1952acf620869b9a9814054c8eb351277f9dae5980f08509c3f210e"
   ]
 }
