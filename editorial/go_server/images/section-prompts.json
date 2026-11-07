@@ -1,0 +1,39 @@
+{
+  "tool": "built-in ImageGen",
+  "posts": [
+    {
+      "file": "16-address-port",
+      "prompt": "Create a professional Russian educational infographic for the first chapter of a Go server programming Telegram course. Portrait 4:5. Large legible Cyrillic typography, navy/cyan/apricot, recognizable blue Go Gopher with round eyes, ears and buck teeth, brand CODELEVEL. Unique illustration tied to one lesson, generous spacing, accurate diagrams. Exact title «АДРЕС И ПОРТ». A blue Go Gopher explains a URL using a clear annotated diagram. Exact central URL «http://127.0.0.1:8080/healthz». Four labelled brackets identify «http · протокол», «127.0.0.1 · адрес», «8080 · порт», «/healthz · путь». Two small explanatory panels «IP ведёт к узлу» and «Порт ведёт к приложению». Show one computer with two separate application doors labelled «8080» and «9090». Keep the address numeric, no DNS illustration mixed with loopback. Technical accuracy, no false statement that ports uniquely identify processes in all configurations.",
+      "path": "editorial/go_server/images/16-address-port.png"
+    },
+    {
+      "file": "17-setup-launch",
+      "prompt": "Create a professional Russian educational infographic for the first chapter of a Go server programming Telegram course. Portrait 4:5. Large legible Cyrillic typography, navy/cyan/apricot, recognizable blue Go Gopher with round eyes, ears and buck teeth, brand CODELEVEL. Unique illustration tied to one lesson, generous spacing, accurate diagrams. Exact title «УСТАНОВКА И ПЕРВЫЙ ЗАПУСК». A blue Go Gopher opens a source-code project and starts a local HTTP server. Three clean numbered stages «1. Установить Go», «2. Открыть проект», «3. Запустить сервер». A clear code card «go version» followed by «go run .». A separate client window shows «GET /healthz → 200 OK». Depict two terminal windows, one running server, one sending request. Label the server terminal «Сервер работает», client terminal «Проверяем ответ». No misleading instruction that go run works before a project is present.",
+      "path": "editorial/go_server/images/17-setup-launch.png"
+    },
+    {
+      "file": "18-build-binary",
+      "prompt": "Create a professional Russian educational infographic for the first chapter of a Go server programming Telegram course. Portrait 4:5. Large legible Cyrillic typography, navy/cyan/apricot, recognizable blue Go Gopher with round eyes, ears and buck teeth, brand CODELEVEL. Unique illustration tied to one lesson, generous spacing, accurate diagrams. Exact title «СБОРКА И ЗАПУСК». A blue Go Gopher operates a compiler workshop. Accurate left-to-right pipeline from source files «.go» to compiler labelled «go build» to executable labelled «server». Then separate arrow from executable to a running process labelled «Запуск сервера». Explain distinction between producing executable and running it. Small labels «Исходники», «Сборка», «Исполняемый файл», «Процесс». Include small separate badges «Linux», «Windows», showing that binaries target an OS. No claim a single binary works on every OS, no package installer imagery.",
+      "path": "editorial/go_server/images/18-build-binary.png"
+    },
+    {
+      "file": "19-hosting",
+      "prompt": "Create a professional Russian educational infographic for the first chapter of a Go server programming Telegram course. Portrait 4:5. Large legible Cyrillic typography, navy/cyan/apricot, recognizable blue Go Gopher with round eyes, ears and buck teeth, brand CODELEVEL. Unique illustration tied to one lesson, generous spacing, accurate diagrams. Exact title «СЕРВЕР ДЛЯ ПОЛЬЗОВАТЕЛЕЙ». A blue Go Gopher supervises a simple production HTTP hosting diagram. Clearly directional flow «Клиент» to «HTTPS · 443» to «Обратный прокси» to «Go · 127.0.0.1:8080». The proxy and Go service are enclosed together in one larger machine outline titled «Один сервер». External HTTPS encrypted link shown with lock, internal localhost link shown inside machine. Three small supporting cards «DNS имени», «Сертификат TLS», «Перезапуск и журнал». Make it explicit by diagram that proxy and Go run on same host in this example. No claim localhost is reachable directly from internet.",
+      "path": "editorial/go_server/images/19-hosting.png"
+    }
+  ],
+  "corrections": [
+    {
+      "file": "16-address-port",
+      "prompt": "Preserve the entire illustration. Change only the small top-right badge from «Урок 1» to «Урок 2». All other content stays unchanged."
+    },
+    {
+      "file": "17-setup-launch",
+      "prompt": "Correct only the technical terminal examples in this infographic. In the small installation check show only «$ go version», removing the invented output version line. In the server terminal show «$ go run .» then «Listening on http://127.0.0.1:8080», with no dates. In the client terminal show exactly these lines: «$ curl -i http://127.0.0.1:8080/healthz», «HTTP/1.1 200 OK», «Content-Type: application/json», blank line, «{\\\"status\\\":\\\"ok\\\"}». Remove the old Content-Length and plaintext ok. The bottom server label should be «Go (127.0.0.1:8080)». Preserve the layout, headings, Gopher and other teaching elements."
+    },
+    {
+      "file": "19-hosting",
+      "prompt": "Preserve the entire infographic except two bottom explanatory paragraphs. In the DNS card replace «Доменное имя пользователей» with «Доменное имя сервиса». In the TLS card replace the explanation with exactly «Для HTTPS прокси использует действительный TLS-сертификат и соответствующую настройку. Публичный порт — 443.» Keep the title, all diagrams, arrows and other content unchanged."
+    }
+  ]
+}

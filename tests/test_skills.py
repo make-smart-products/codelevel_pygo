@@ -9,16 +9,18 @@ from unittest.mock import Mock,patch
 
 from skills_content import RECIPES,code_case,make_event
 from go_server_content import GO_HTTP_EVENTS
+from server_section import SECTION_EVENTS,section_index
 from skills_publish import image_fingerprint,publish_batch,queued_event,send_event
 
 
 class SkillsContentTests(unittest.TestCase):
     def test_go_images_are_distinct(self):
         self.assertEqual(len({image_fingerprint(event) for event in GO_HTTP_EVENTS}), len(GO_HTTP_EVENTS))
+        self.assertEqual(len({image_fingerprint(event) for event in SECTION_EVENTS}), len(SECTION_EVENTS))
 
     def test_payload_limits_options_and_ids(self):
         identifiers=set()
-        events = (*GO_HTTP_EVENTS, *(make_event(index) for index in range(5005)))
+        events = (*GO_HTTP_EVENTS, *SECTION_EVENTS, *(make_event(index) for index in range(5005)))
         for event in events:
             self.assertNotIn(event['id'],identifiers)
             identifiers.add(event['id'])
@@ -34,6 +36,13 @@ class SkillsContentTests(unittest.TestCase):
                 self.assertLessEqual(len(plain_text(event['caption']).encode('utf-16-le'))//2,1024)
             if 'image_path' in event:
                 self.assertTrue((Path(__file__).resolve().parents[1] / event['image_path']).is_file())
+
+    def test_section_index_links_every_lesson_in_order(self):
+        identifiers = {event['id']: 200 + index for index, event in enumerate(SECTION_EVENTS)}
+        text = section_index(identifiers)
+        positions = [text.index(f'https://t.me/codelevel_pygo/{message_id}') for message_id in identifiers.values()]
+        self.assertEqual(positions, sorted(positions))
+        self.assertEqual(text.count('https://t.me/codelevel_pygo/'), 19)
 
     def test_python_answers_match_execution_across_variations(self):
         for recipe in RECIPES:
