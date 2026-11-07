@@ -1,0 +1,21 @@
+{
+  "photos": [
+    {
+      "event_id": "go-http-v1-03",
+      "message_id": 96,
+      "sha256": "50480354bb0eff2bdb57017f412e2adff1f3c6473cbcd7bd7adf40116e8020e3",
+      "image_path": "editorial/go_server/images/03-first-handler.png",
+      "file_unique_id": "AQADvh1rG6yNeEt8",
+      "updated_at": "2026-11-07T08:21:23.297254+00:00"
+    },
+    {
+      "event_id": "go-http-v1-05",
+      "message_id": 98,
+      "sha256": "ca2f026b9d61d496f8f4acccc9f98003a3750c9b834b16c03306c806162296a9",
+      "image_path": "editorial/go_server/images/05-http-response.png",
+      "file_unique_id": "AQADvx1rG6yNeEt8",
+      "updated_at": "2026-11-07T08:21:24.765777+00:00"
+    }
+  ],
+  "pending": null
+}

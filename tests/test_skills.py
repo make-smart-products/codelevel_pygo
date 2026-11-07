@@ -9,10 +9,13 @@ from unittest.mock import Mock,patch
 
 from skills_content import RECIPES,code_case,make_event
 from go_server_content import GO_HTTP_EVENTS
-from skills_publish import publish_batch,queued_event,send_event
+from skills_publish import image_fingerprint,publish_batch,queued_event,send_event
 
 
 class SkillsContentTests(unittest.TestCase):
+    def test_go_images_are_distinct(self):
+        self.assertEqual(len({image_fingerprint(event) for event in GO_HTTP_EVENTS}), len(GO_HTTP_EVENTS))
+
     def test_payload_limits_options_and_ids(self):
         identifiers=set()
         events = (*GO_HTTP_EVENTS, *(make_event(index) for index in range(5005)))
@@ -60,6 +63,9 @@ class SkillsDeliveryTests(unittest.TestCase):
     def setUp(self):
         self.now=datetime(2026,11,4,17,20,tzinfo=timezone.utc)
         self.state={'next_index':5,'last_sent_at':(self.now-timedelta(minutes=11)).isoformat(),'pending':None,'batch':None}
+        images = patch('skills_publish.image_fingerprint', side_effect=lambda event: event['id'])
+        images.start()
+        self.addCleanup(images.stop)
 
     def test_ten_minute_windows_and_batch_size(self):
         send=Mock(return_value={'message_id':100})
@@ -86,6 +92,27 @@ class SkillsDeliveryTests(unittest.TestCase):
             publish_batch(self.state,self.now,send,Mock(side_effect=RuntimeError('push failed')),pause=lambda _:None)
         send.assert_not_called()
 
+    def test_repeated_image_holds_queue_without_reserving_or_sending(self):
+        self.state['used_image_hashes'] = []
+        send = Mock(return_value={'message_id':100})
+        with patch('skills_publish.image_fingerprint', return_value='same-image'):
+            publish_batch(self.state, self.now, send, Mock(), pause=lambda _:None)
+            self.assertEqual(send.call_count, 1)
+            self.assertEqual(self.state['next_index'], 6)
+            self.assertIsNone(self.state['pending'])
+            publish_batch(self.state, self.now + timedelta(minutes=10), send, Mock(), pause=lambda _:None)
+        self.assertEqual(send.call_count, 1)
+        self.assertEqual(self.state['used_image_hashes'], ['same-image'])
+
+    def test_old_progress_backfills_image_history_before_sending(self):
+        send = Mock()
+        with patch('skills_publish.image_fingerprint', return_value='old-image'):
+            publish_batch(self.state, self.now, send, Mock(), pause=lambda _:None)
+        send.assert_not_called()
+        self.assertIsNone(self.state['pending'])
+        self.assertEqual(self.state['next_index'], 5)
+        self.assertEqual(self.state['used_image_hashes'], ['old-image'])
+
     def test_go_series_starts_after_allocated_batch_and_resumes_original_queue(self):
         self.state['batch'] = {'slot': 0, 'end_index': 10}
         send = Mock(return_value={'message_id': 100})
@@ -107,7 +134,7 @@ class SkillsDeliveryTests(unittest.TestCase):
         with patch('skills_publish.upload', return_value={'message_id': 100, 'poll': {'type': 'quiz'}}) as upload:
             send_event('test-token', -100, event)
         self.assertEqual(upload.call_args.args[:3], ('test-token', 'sendPoll', 'picture'))
-        self.assertEqual(upload.call_args.args[3].name, '01-request-explained.png')
+        self.assertEqual(upload.call_args.args[3].name, '02-toolbox.png')
         self.assertEqual(upload.call_args.kwargs['media'], {'type': 'photo', 'media': 'attach://picture'})
 
     def test_quiz_payload_uses_correct_option_and_picture(self):

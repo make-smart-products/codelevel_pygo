@@ -30,6 +30,16 @@ def queued_event(index, state):
     return make_event(index - len(GO_HTTP_EVENTS))
 
 
+def image_fingerprint(event):
+    if event.get('image_path'):
+        return 'sha256:' + hashlib.sha256((ROOT / event['image_path']).read_bytes()).hexdigest()
+    assets = json.loads((CARDS / 'assets.json').read_text(encoding='utf-8'))
+    asset = assets[event['asset']]
+    if asset.get('sha256'):
+        return 'sha256:' + asset['sha256']
+    return 'telegram:' + asset['file_unique_id']
+
+
 def save_state(state):
     if os.environ.get('GITHUB_ACTIONS')!='true':
         raise RuntimeError('Фиксация облачного прогресса разрешена в GitHub Actions.')
@@ -85,13 +95,23 @@ def publish_batch(state,now,send,persist,pause=time.sleep):
         state['batch']=batch
         # Начинаем практикум на границе новой пятёрки. Старую очередь продолжим после него.
         state.setdefault('go_http_start', state['next_index'])
+    if 'used_image_hashes' not in state:
+        state['used_image_hashes'] = sorted({
+            image_fingerprint(queued_event(index, state))
+            for index in range(state['next_index'])
+        })
     while state['next_index']<batch['end_index']:
         index=state['next_index']
         event=queued_event(index, state)
+        picture = image_fingerprint(event)
+        if picture in state['used_image_hashes']:
+            print(f"Ожидается новая иллюстрация для {event['id']}. Повторная картинка не отправлена.", flush=True)
+            return
         digest=hashlib.sha256(json.dumps(event,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
         state['pending']={'index':index,'event_id':event['id'],'kind':event['kind'],'sha256':digest}
         persist(state)  # Не отправляем, если резервирование не удалось сохранить.
         result=send(event)
+        state['used_image_hashes'].append(picture)
         state.update(next_index=index+1,last_event_id=event['id'],last_message_id=result['message_id'],
             last_sent_at=now.isoformat(),pending=None)
         if index+1==batch['end_index']:

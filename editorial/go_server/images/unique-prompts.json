@@ -1,0 +1,101 @@
+{
+  "tool": "built-in ImageGen",
+  "posts": [
+    {
+      "number": 2,
+      "file": "02-toolbox",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ПАКЕТЫ GO». A blue Go Gopher at an engineer's workbench with four separate tool drawers. Icons for network connection, JSON braces, URL links and operating-system signals. The composition asks which tool is used for an HTTP server. Four equally sized unlabelled drawers, no correct answer marked. One central server outline as task. This illustrates a quiz about choosing a standard-library package. No code, no package names and no checkmarks.",
+      "path": "editorial/go_server/images/02-toolbox.png"
+    },
+    {
+      "number": 3,
+      "file": "03-first-handler",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ПЕРВЫЙ ОБРАБОТЧИК». A blue Go Gopher assembling three distinct architectural blocks on a workbench, connected by clear arrows: label the first «ServeMux», second «HandleFunc», third «JSON». Next to the blocks a tiny browser with the path «/healthz». The mascot snaps the handler block into place. Explain registration of one HTTP handler visually, with a clean detailed cutaway diagram. No invented source code.",
+      "path": "editorial/go_server/images/03-first-handler.png"
+    },
+    {
+      "number": 4,
+      "file": "04-loopback",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «127.0.0.1». A blue Go Gopher examining a large computer with browser and server icons inside its outline. A bright loop arrow connects browser to server inside the same computer. Smaller external laptop and globe outside connected only with question marks, no route arrows. Quiz illustration about local network address, no answer text and no marked option. Large clear address «127.0.0.1:8080» appears once.",
+      "path": "editorial/go_server/images/04-loopback.png"
+    },
+    {
+      "number": 5,
+      "file": "05-http-response",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ЧИТАЕМ HTTP-ОТВЕТ». A blue Go Gopher uses a pointer to explain a single enlarged terminal reply split into three well-separated horizontal sections. Exact text section one «HTTP/1.1 200 OK», section two «Content-Type: application/json», section three «{\"status\":\"ok\"}». Labels in Russian beside them «Статус», «Заголовки», «Тело». Indicate one empty spacer line between headers and body. Draw a clear explanation with bracket pointers, not just decorative terminal art.",
+      "path": "editorial/go_server/images/05-http-response.png"
+    },
+    {
+      "number": 7,
+      "file": "07-path-quiz",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ОТКУДА ВЗЯТЬ ИМЯ?». A blue Go Gopher detective looking at a request card labelled exactly «GET /api/hello/Grace». Highlight the final word «Grace» using a golden underline. Three distinct small evidence cards illustrate a URL query string, HTTP header lines and a route template with a blank slot, all equally neutral and unlabelled. A question mark indicates where to extract the value. No PathValue text and no correct-answer checkmark. This is a Go route-parameter quiz.",
+      "path": "editorial/go_server/images/07-path-quiz.png"
+    },
+    {
+      "number": 8,
+      "file": "08-json-validation",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ПРОВЕРКА ИМЕНИ». A blue Go Gopher operating a validation gate for a Go HTTP JSON API. Two incoming name cards «Ada» and «Ada123». Ada follows a cyan arrow to «200 OK» and a neat JSON document. Ada123 follows an apricot arrow to «400 Bad Request» and an error document. Put a small checking filter between request and response, labels «Ввод», «Проверка», «JSON». Make the two flows visually unambiguous and distinct. No code snippets.",
+      "path": "editorial/go_server/images/08-json-validation.png"
+    },
+    {
+      "number": 9,
+      "file": "09-status-quiz",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «КАКОЙ СТАТУС ВЕРНЁТСЯ?». A blue Go Gopher facing a large request card «GET /api/hello/Ada123» and four equally sized unmarked HTTP-status cards «200», «400», «404», «405». A small validator graphic indicates the rule «Только буквы и дефисы». Do not connect any status card to the request and do not highlight a correct answer. Professional quiz illustration about input validation, distinct from the teaching diagram.",
+      "path": "editorial/go_server/images/09-status-quiz.png"
+    },
+    {
+      "number": 10,
+      "file": "10-concurrency",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ЗАПРОСЫ ОДНОВРЕМЕННО». A blue Go Gopher coordinating two concurrent Go HTTP requests on separate cyan and apricot lanes. Upper lane «Ada» flows to response «Hello, Ada!», lower lane «Grace» flows to «Hello, Grace!». Each lane has its own separate handler work area. Below, a shared map icon is protected by a clearly visible lock and the small label «Общие данные». Teach request-local variables versus shared mutable state. Clean explanatory arrows and labelled lanes, no claim of exactly one goroutine per request.",
+      "path": "editorial/go_server/images/10-concurrency.png"
+    },
+    {
+      "number": 11,
+      "file": "11-timeouts",
+      "prompt": "Create an original professional Russian educational infographic for a Telegram Go HTTP server lesson. Portrait 4:5, navy/cyan/apricot, large readable text, blue Go Gopher as engineer, brand CODELEVEL. Exact title «ЧЕТЫРЕ ТАЙМАУТА GO». Focus entirely on four stages, without shutdown or power-off illustrations. Four separately numbered panels with clocks: «ReadHeaderTimeout» / «Чтение заголовков»; «ReadTimeout» / «Чтение запроса целиком»; «WriteTimeout» / «Запись ответа»; «IdleTimeout» / «Ожидание следующего запроса». Use a small illustration per panel to distinguish headers, body, outgoing response and keep-alive waiting. A clearly labelled note «Значения выбирают под задачу». Professional detailed teaching layout with clean arrows, no fake code, no durations, no claim that all stages occur strictly sequentially.",
+      "path": "editorial/go_server/images/11-timeouts.png"
+    },
+    {
+      "number": 12,
+      "file": "12-slow-header-quiz",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «МЕДЛЕННЫЙ КЛИЕНТ». A blue Go Gopher watching a network envelope slowly arrive at a Go server, with only the header section partly filled and a large stopwatch nearby. Label envelope «HTTP-заголовки». Four equal neutral clock icons in a row with labels «A», «B», «C», «D», no option highlighted and no timeout field names. Conceptual quiz picture about a client slowly sending request headers. Show the incomplete header and trickling bytes clearly.",
+      "path": "editorial/go_server/images/12-slow-header-quiz.png"
+    },
+    {
+      "number": 13,
+      "file": "13-graceful-shutdown",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «МЯГКОЕ ЗАВЕРШЕНИЕ». A blue Go Gopher closes an entry gate to new requests while three existing request workers finish on the server side. Two clearly separated zones labelled «Новые соединения» and «Активные запросы». Put a stop symbol only at new connections; existing tasks have progress bars and a bounded clock labelled «Контекст · 5 секунд». Caption line exactly «Ждём до завершения запросов или срока контекста». Technically accurate Go HTTP Shutdown illustration. Clear numbered stages «1. Закрыть вход», «2. Подождать», «3. Завершить процесс».",
+      "path": "editorial/go_server/images/13-graceful-shutdown.png"
+    },
+    {
+      "number": 14,
+      "file": "14-server-error-quiz",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ОСТАНОВКА ИЛИ ОШИБКА?». A blue Go Gopher studies two clearly separate server log windows, one with power-down icon and «Shutdown», another with occupied network-port icon and «Порт занят». A large neutral question mark between them, four empty unmarked answer tiles at bottom. Quiz on distinguishing normal Go HTTP server closure from startup failure. Do not print ErrServerClosed, do not show the answer. Precise polished educational metaphor.",
+      "path": "editorial/go_server/images/14-server-error-quiz.png"
+    },
+    {
+      "number": 15,
+      "file": "15-handler-tests",
+      "prompt": "Create an original professional educational illustration for a Russian Go HTTP programming Telegram channel. Portrait 4:5, large readable Cyrillic text, deep midnight navy background, cyan and pale apricot palette, polished vector graphics with subtle dimensional light, generous margins, brand CODELEVEL. Recognizable blue Go Gopher mascot with round eyes, small ears and buck teeth. Every graphic should teach the exact post topic. Avoid dense text and unrelated props. Exact large title «ТЕСТИРУЕМ ОБРАБОТЧИК». A blue Go Gopher in a software testing lab runs one HTTP request through a handler into a response recorder. Depict «NewRequest» and «NewRecorder» prepared in parallel, both feeding «ServeHTTP», which produces the response card. Response card has three checks labelled «Статус», «Заголовки», «JSON». Small footer «httptest · без сетевого порта». Make arrows show request and recorder prepared first, both passed to handler, and inspected response after. No fake source code.",
+      "path": "editorial/go_server/images/15-handler-tests.png"
+    }
+  ],
+  "corrections": [
+    {
+      "post": 3,
+      "prompt": "Edit only the lowest small diagram in this illustration. In the orange card under the heading «Зарегистрированный обработчик», replace «HandleFunc (обработчик)» with «health (обработчик)». Keep the word HandleFunc on the big central puzzle piece unchanged, because that refers to registration. All other illustration elements, labels and layout remain unchanged. Render health in clean readable Latin letters."
+    },
+    {
+      "post": 4,
+      "prompt": "Keep this whole infographic unchanged except the bottom question box. Replace its text with exactly «Кто может подключиться к 127.0.0.1:8080?» in large readable Russian lettering. Remove the phrase «адрес локальной сети» completely because 127.0.0.1 is a loopback address. Keep the existing computer illustration, Gopher, arrows and all other address labels."
+    },
+    {
+      "post": 8,
+      "prompt": "Correct this educational infographic while preserving layout, mascot, colors and all status codes. On the central filter replace «Только буквы» with «Буквы и дефисы». In the successful 200 OK JSON panel replace the JSON with exactly {\"message\":\"Hello, Ada!\"}. In the error 400 panel simplify the JSON to exactly {\"error\":\"...\"}, using an ellipsis placeholder rather than a translated error message. Make text large and readable. No other changes."
+    },
+    {
+      "post": 10,
+      "prompt": "Preserve this infographic except two technical label corrections. Replace the entire bottom paragraph with exactly «Обработчики могут выполняться одновременно. Локальные переменные отдельных вызовов независимы, а общие изменяемые данные требуют синхронизации.» Use clear readable text. Replace both small labels «Обработчик /hello» with «Обработчик hello». Leave all other diagram elements, colors, mascot, names and shared map unchanged."
+    }
+  ]
+}
