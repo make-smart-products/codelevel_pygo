@@ -17,5 +17,31 @@
       "updated_at": "2026-11-07T08:21:24.765777+00:00"
     }
   ],
-  "pending": null
+  "pending": null,
+  "quizzes": [
+    {
+      "action": "recreate_quiz",
+      "event_id": "go-http-v1-02",
+      "old_message_id": 95,
+      "image_sha256": "a74dd4abc865c6dd3a496608dfd35eda2325ecaf429c979ccc803a36bd3da181",
+      "new_message_id": 104,
+      "poll_id": "5438252319923770623",
+      "image_path": "editorial/go_server/images/02-toolbox.png",
+      "created_at": "2026-11-07T10:40:46.852542+00:00",
+      "old_deleted": true,
+      "deleted_at": "2026-11-07T10:40:47.427542+00:00"
+    },
+    {
+      "action": "recreate_quiz",
+      "event_id": "go-http-v1-04",
+      "old_message_id": 97,
+      "image_sha256": "b2a7be00ee6aede423537a8a3078661bb583b9a69561a1b4916459e6fb0b4425",
+      "new_message_id": 105,
+      "poll_id": "5438252319923770624",
+      "image_path": "editorial/go_server/images/04-loopback.png",
+      "created_at": "2026-11-07T10:40:49.404088+00:00",
+      "old_deleted": true,
+      "deleted_at": "2026-11-07T10:40:50.028169+00:00"
+    }
+  ]
 }
