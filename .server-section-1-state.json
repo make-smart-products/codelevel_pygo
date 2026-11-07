@@ -1,0 +1,155 @@
+{
+  "version": "servers-section-1-v1",
+  "mode": "replace",
+  "index_message_id": 106,
+  "lessons": {
+    "servers-section-1-01": {
+      "message_id": 107,
+      "kind": "photo",
+      "image_fingerprint": "sha256:0ab1fbe155c97aee8f75832a5a7b0236dfe9dcd78bdc6b5e5cc609f14bcc0167",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:58:57.317756+00:00"
+    },
+    "servers-section-1-02": {
+      "message_id": 108,
+      "kind": "photo",
+      "image_fingerprint": "sha256:ca834bf9a3b52171e076ae28beb20ffe1657ad57cdc41dd8aeca0129071b2550",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:02.436493+00:00"
+    },
+    "servers-section-1-03": {
+      "message_id": 109,
+      "kind": "photo",
+      "image_fingerprint": "sha256:0bbd9d56eb0e2a3ab628202af124b642d7820c644639bc4d0ba96769da625ccc",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:07.161981+00:00"
+    },
+    "servers-section-1-04": {
+      "message_id": 110,
+      "kind": "photo",
+      "image_fingerprint": "sha256:50480354bb0eff2bdb57017f412e2adff1f3c6473cbcd7bd7adf40116e8020e3",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:11.836969+00:00"
+    },
+    "servers-section-1-05": {
+      "message_id": 111,
+      "kind": "photo",
+      "image_fingerprint": "sha256:ca2f026b9d61d496f8f4acccc9f98003a3750c9b834b16c03306c806162296a9",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:16.525253+00:00"
+    },
+    "servers-section-1-06": {
+      "message_id": 112,
+      "kind": "quiz",
+      "image_fingerprint": "sha256:a74dd4abc865c6dd3a496608dfd35eda2325ecaf429c979ccc803a36bd3da181",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:21.016278+00:00"
+    },
+    "servers-section-1-07": {
+      "message_id": 113,
+      "kind": "quiz",
+      "image_fingerprint": "sha256:b2a7be00ee6aede423537a8a3078661bb583b9a69561a1b4916459e6fb0b4425",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:25.996117+00:00"
+    },
+    "servers-section-1-08": {
+      "message_id": 114,
+      "kind": "photo",
+      "image_fingerprint": "sha256:976d4012ab68d468e66e9fcc5a16405a5fc9dfb7bace3d55f89698bb9c98c08d",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:30.875818+00:00"
+    },
+    "servers-section-1-09": {
+      "message_id": 115,
+      "kind": "quiz",
+      "image_fingerprint": "sha256:e7fe5d5705bf987e37199a96095f518733da8477453170af0b51d90d79cdc5f4",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:35.457254+00:00"
+    },
+    "servers-section-1-10": {
+      "message_id": 116,
+      "kind": "photo",
+      "image_fingerprint": "sha256:f27922f65589f0fa46cedd3f404ac9515820509629b48a343e11550096f6b137",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:40.060762+00:00"
+    },
+    "servers-section-1-11": {
+      "message_id": 117,
+      "kind": "quiz",
+      "image_fingerprint": "sha256:aece647e943d0b6ce060c28f83080e8574cf3444d150f3d603c281efb6de5061",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:45.079640+00:00"
+    },
+    "servers-section-1-12": {
+      "message_id": 118,
+      "kind": "photo",
+      "image_fingerprint": "sha256:0ffc7d26f1952acf620869b9a9814054c8eb351277f9dae5980f08509c3f210e",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:49.754818+00:00"
+    },
+    "servers-section-1-13": {
+      "message_id": 119,
+      "kind": "photo",
+      "image_fingerprint": "sha256:877c73732f2a79fb4d7b68ab457f5e1aaa752c6d202f6ff27f79658258a094dd",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:54.601397+00:00"
+    },
+    "servers-section-1-14": {
+      "message_id": 120,
+      "kind": "quiz",
+      "image_fingerprint": "sha256:443b94868af3a87fe1d824c47689b490ec22785ba14204b6a6b2bdd69ad34b65",
+      "retained": false,
+      "confirmed_at": "2026-11-07T11:59:59.279183+00:00"
+    },
+    "servers-section-1-15": {
+      "message_id": 121,
+      "kind": "photo",
+      "image_fingerprint": "sha256:cdc61fa1593dc0d053c8a9b75daef83d935de55d7a05a64bf82ab6774a6eea9b",
+      "retained": false,
+      "confirmed_at": "2026-11-07T12:00:03.927074+00:00"
+    },
+    "servers-section-1-16": {
+      "message_id": 122,
+      "kind": "quiz",
+      "image_fingerprint": "sha256:a049d7f9dc4332f0a4126bb868fb2642593a07d91b05d16dbf5854b65cabe586",
+      "retained": false,
+      "confirmed_at": "2026-11-07T12:00:08.569744+00:00"
+    },
+    "servers-section-1-17": {
+      "message_id": 123,
+      "kind": "photo",
+      "image_fingerprint": "sha256:c32935e7480f7ef2ac6aec8bf4d7a019cd81cd0daa92c0fcd9ede8e020350370",
+      "retained": false,
+      "confirmed_at": "2026-11-07T12:00:13.190862+00:00"
+    },
+    "servers-section-1-18": {
+      "message_id": 124,
+      "kind": "photo",
+      "image_fingerprint": "sha256:ffa8b42c6a2c7f8f2b39be56a333411c1e6745a01aad68ed40a924fc44acc22b",
+      "retained": false,
+      "confirmed_at": "2026-11-07T12:00:18.012715+00:00"
+    },
+    "servers-section-1-19": {
+      "message_id": 125,
+      "kind": "photo",
+      "image_fingerprint": "sha256:1d6384b5348b0b6442929d10b606f22b8cf55740ee8d1e62ee56b97b3cfb54e0",
+      "retained": false,
+      "confirmed_at": "2026-11-07T12:00:22.819350+00:00"
+    }
+  },
+  "old_deleted": [
+    94,
+    96,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "pending": null,
+  "complete": true,
+  "completed_at": "2026-11-07T12:00:35.641068+00:00"
+}
