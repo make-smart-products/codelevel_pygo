@@ -2,7 +2,12 @@
   "version": "illustrated-skills-v1",
   "next_index": 69,
   "last_sent_at": "2026-11-07T08:24:37.758489+00:00",
-  "pending": null,
+  "pending": {
+    "index": 69,
+    "event_id": "go-http-v1-10",
+    "kind": "photo",
+    "sha256": "7a11128de59fbc7d89e05b8aa37a55b49db470731fbbc5d51825cdb0011f707f"
+  },
   "batch": {
     "slot": 2990065,
     "end_index": 70
