@@ -11,12 +11,23 @@ import sys
 import time
 
 from bot import ROOT, api, read_config
+from go_server_content import GO_HTTP_EVENTS
 from skills_content import CARDS, make_event
+from telegram_upload import upload
 
 STATE=ROOT/'.skills-publication-state.json'
 POSTS_PER_RUN=5
 INTERVAL_SECONDS=600
 SCHEDULE_OFFSET_SECONDS=7*60
+
+
+def queued_event(index, state):
+    start = state.get('go_http_start')
+    if start is None or index < start:
+        return make_event(index)
+    if index < start + len(GO_HTTP_EVENTS):
+        return GO_HTTP_EVENTS[index - start]
+    return make_event(index - len(GO_HTTP_EVENTS))
 
 
 def save_state(state):
@@ -30,18 +41,29 @@ def save_state(state):
 
 
 def send_event(token,channel,event):
-    assets=json.loads((CARDS/'assets.json').read_text(encoding='utf-8'))
-    photo=assets[event['asset']]['file_id']
+    image = event.get('image_path')
+    if image:
+        photo = 'attach://picture'
+    else:
+        assets=json.loads((CARDS/'assets.json').read_text(encoding='utf-8'))
+        photo=assets[event['asset']]['file_id']
     if event['kind']=='photo':
+        if image:
+            return upload(token, 'sendPhoto', 'photo', ROOT / image,
+                chat_id=channel, caption=event['caption'], parse_mode='HTML')
         return api(token,'sendPhoto',chat_id=channel,photo=photo,caption=event['caption'],parse_mode='HTML')
     if event['kind']=='quiz':
-        result=api(token,'sendPoll',chat_id=channel,type='quiz',is_anonymous=True,
+        fields=dict(chat_id=channel,type='quiz',is_anonymous=True,
             question=event['question'],options=[{'text':value} for value in event['options']],
             # Поддержка нового и прежнего имени поля. Индекс в обоих одинаков.
             correct_option_ids=[event['correct']],correct_option_id=event['correct'],
             explanation=event['explanation'],allows_multiple_answers=False,
             description=event['description'],description_parse_mode='HTML',
             media={'type':'photo','media':photo})
+        if image:
+            result = upload(token, 'sendPoll', 'picture', ROOT / image, **fields)
+        else:
+            result = api(token, 'sendPoll', **fields)
         if result.get('poll',{}).get('type')!='quiz':
             raise RuntimeError('Telegram не подтвердил режим викторины. Проверьте канал.')
         return result
@@ -61,9 +83,11 @@ def publish_batch(state,now,send,persist,pause=time.sleep):
     if not batch:
         batch={'slot':slot,'end_index':state['next_index']+POSTS_PER_RUN}
         state['batch']=batch
+        # Начинаем практикум на границе новой пятёрки. Старую очередь продолжим после него.
+        state.setdefault('go_http_start', state['next_index'])
     while state['next_index']<batch['end_index']:
         index=state['next_index']
-        event=make_event(index)
+        event=queued_event(index, state)
         digest=hashlib.sha256(json.dumps(event,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
         state['pending']={'index':index,'event_id':event['id'],'kind':event['kind'],'sha256':digest}
         persist(state)  # Не отправляем, если резервирование не удалось сохранить.
@@ -85,7 +109,9 @@ def main():
     args=parser.parse_args()
     state=json.loads(STATE.read_text(encoding='utf-8'))
     if args.preview:
-        print(json.dumps([make_event(i) for i in range(state['next_index'],state['next_index']+5)],ensure_ascii=False,indent=2))
+        batch = state.get('batch')
+        state.setdefault('go_http_start', batch['end_index'] if batch else state['next_index'])
+        print(json.dumps([queued_event(i, state) for i in range(state['next_index'],state['next_index']+5)],ensure_ascii=False,indent=2))
         return
     config=read_config(ROOT/'.env')
     token=config.get('TELEGRAM_BOT_TOKEN')

@@ -3,18 +3,20 @@ import copy
 from datetime import datetime,timedelta,timezone
 import io
 import json
+from pathlib import Path
 import unittest
 from unittest.mock import Mock,patch
 
 from skills_content import RECIPES,code_case,make_event
-from skills_publish import publish_batch,send_event
+from go_server_content import GO_HTTP_EVENTS
+from skills_publish import publish_batch,queued_event,send_event
 
 
 class SkillsContentTests(unittest.TestCase):
     def test_payload_limits_options_and_ids(self):
         identifiers=set()
-        for index in range(5005):
-            event=make_event(index)
+        events = (*GO_HTTP_EVENTS, *(make_event(index) for index in range(5005)))
+        for event in events:
             self.assertNotIn(event['id'],identifiers)
             identifiers.add(event['id'])
             if event['kind']=='quiz':
@@ -27,6 +29,8 @@ class SkillsContentTests(unittest.TestCase):
             else:
                 from editorial.build_pack import plain_text
                 self.assertLessEqual(len(plain_text(event['caption']).encode('utf-16-le'))//2,1024)
+            if 'image_path' in event:
+                self.assertTrue((Path(__file__).resolve().parents[1] / event['image_path']).is_file())
 
     def test_python_answers_match_execution_across_variations(self):
         for recipe in RECIPES:
@@ -81,6 +85,30 @@ class SkillsDeliveryTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             publish_batch(self.state,self.now,send,Mock(side_effect=RuntimeError('push failed')),pause=lambda _:None)
         send.assert_not_called()
+
+    def test_go_series_starts_after_allocated_batch_and_resumes_original_queue(self):
+        self.state['batch'] = {'slot': 0, 'end_index': 10}
+        send = Mock(return_value={'message_id': 100})
+        persist = Mock()
+        publish_batch(self.state, self.now, send, persist, pause=lambda _: None)
+        self.assertEqual([call.args[0] for call in send.call_args_list],
+                         [make_event(index) for index in range(5, 10)])
+        self.assertNotIn('go_http_start', self.state)
+        send.reset_mock()
+        for minutes in (10, 20, 30):
+            publish_batch(self.state, self.now + timedelta(minutes=minutes),
+                          send, persist, pause=lambda _: None)
+        self.assertEqual(self.state['go_http_start'], 10)
+        self.assertEqual([call.args[0] for call in send.call_args_list], list(GO_HTTP_EVENTS))
+        self.assertEqual(queued_event(self.state['next_index'], self.state), make_event(10))
+
+    def test_go_quiz_attaches_local_picture(self):
+        event = GO_HTTP_EVENTS[1]
+        with patch('skills_publish.upload', return_value={'message_id': 100, 'poll': {'type': 'quiz'}}) as upload:
+            send_event('test-token', -100, event)
+        self.assertEqual(upload.call_args.args[:3], ('test-token', 'sendPoll', 'picture'))
+        self.assertEqual(upload.call_args.args[3].name, '01-request-explained.png')
+        self.assertEqual(upload.call_args.kwargs['media'], {'type': 'photo', 'media': 'attach://picture'})
 
     def test_quiz_payload_uses_correct_option_and_picture(self):
         event=make_event(6)
